@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+div,body,img{
+	margin: 0;
+	padding: 0;
+}
+#chocePic{
+		margin: 40px auto;
+		width: 700px;
+		height: 400px;
+	}
+#left{
+	float: left;
+	width: 100px;
+}
+#left input{
+	width: 100px;
+	height: 100px;
+}
+#right{
+	float: right;
+	width: 600px;
+	height: 100%;
+}
+#right img{
+	width: 600px;
+	height: 100%;	
+}
+#xiao div{
+	background-color: black;
+	height: 30px;
+	line-height: 30px;
+	font-size: 12px;
+	color: white;
+	opacity: 0.7;
+	float: left;
+	text-align: center;
+	margin-left: 5px;
+
+}
+#xiao{
+	position: absolute;
+	z-index: 1;
+	margin-top: -34px;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+ var arr=[
+	 ['img/01.jpg','img/02.jpg','img/03.jpg'],
+	 ['img/04.jpg','img/05.jpg','img/06.jpg','img/07.jpg'],
+	 ['img/08.jpg','img/09.jpg','img/1.jpg','img/2.jpg'],
+["img/3.jpg",'img/4.jpg','img/5.jpg','img/6.jpg','img/7.jpg']
+ ];
+ var arr1=['img/01.jpg','img/02.jpg','img/03.jpg']
+ var oLeft=document.getElementById('left');
+ var oRight=document.getElementById('right');
+ var oImg=document.getElementById('pic');
+ var xiao=document.getElementById('xiao');
+
+  for (var i = 0; i < arr.length; i++) {
+  	oLeft.innerHTML+="<input type='button' value="+(i+1)+">"
+  };
+  var oinput=oLeft.getElementsByTagName('input');/*
+  alert(oinput.length) 测试是否已经有4个按钮了*/
+  for (var i = 0; i < oinput.length; i++) {
+  	changePic(oinput[i],arr[i])
+  };
+  function changePic(opt,arr){
+				  opt.onclick=function(){
+				  		xiao.innerHTML=''
+				  		for (var i = 0; i < arr.length; i++) {
+				  		xiao.innerHTML+="<div>"+i+"</div>";
+				  	}
+				  
+				  var oDiv=xiao.getElementsByTagName('div');
+				  for (var i = 0; i < oDiv.length; i++) {
+				  	oDiv[i].style.width=(600-oDiv.length*5)/oDiv.length+"px";
+				  	oDiv[i].index=i;
+				  };
+				  for (var i = 0; i < oDiv.length; i++) {
+				  oDiv[i].onclick=function(){
+				  	document.getElementById('pic').src=arr[this.index]//这里不能用i来，因为循环中的i只在循环里面存在，不在运行代码时存在。而且这儿只能用document.getElementById('pic')获取到img标签才能使用他的SRC属性.而且必须在此处获取;	
+				  	}
+				  };
+				  }
+				  }
+  }
+</script>
+</head>
+<body>
+<div id='chocePic'>
+	<div id='left'>	
+	</div>
+	<div id='right'>
+		<img id="pic" src="img/9.jpg">
+		<div id='xiao'></div>
+	</div>
+</div>
+</body>
+</html>
