@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+body,div{
+	margin:0;
+	padding: 0; 
+}
+body{
+	height: 100%;
+}
+div{
+
+	margin-top: 20px;
+	width: 50px;
+	height: 50px;
+	background-color: green;
+	position: absolute;/*元素运动的关键点，相对于父元素绝对定位*/
+}
+</style>
+<script type="text/javascript" src='js/01.js'></script>
+<script type="text/javascript">
+window.onload=function(){
+	var num=20,
+	coun=0,
+	onff=true;
+	str='',
+	aDiv=document.getElementsByTagName('div');
+	var timer=null;
+	for (var i = 0; i <num;i++) {
+		str+='<div style="left:'+i*60+'px;">'+i+'</div>';
+	};
+	document.body.innerHTML=str;
+	function change(){alert(onff)};
+	
+	document.onclick=function(){
+		clearInterval(timer);
+		timer=setInterval(function(){
+	if(onff==true){
+		move(aDiv[coun],'top',5,400);
+			coun++;//move函数执行完之和才回执行coun++,if语句。
+			if (coun==aDiv.length){
+			
+					onff=false;	
+				console.log(coun+" "+onff);
+			}
+			}else{
+		coun=19;
+		move(aDiv[coun],'top',5,0);
+			coun--;//move函数执行完之和才回执行coun++,if语句。
+			if (coun==-1){
+
+					onff=true;	
+				console.log(coun+" "+onff);
+			}
+			}
+		},100)
+	}
+	
+}				
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
