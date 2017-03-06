@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+body,span,li,div{
+	margin: 0;
+	padding: 0;
+}
+.pageBox{
+	position: relative;
+	left: 220px;
+	top: 50px;
+	width: 600px;
+	height: 600px;
+	border: 1px green solid;
+}
+.pageBox .pageBoxLeft{
+	float: left;
+	width: 70%;
+	margin: 0 4%;
+}
+.pageBox .pageBoxLeft .LeftTop{
+	padding: 16px 10px;
+	margin-top: 50px;
+	height: 300px;
+	border: 1px solid red;
+
+}
+.pageBox .pageBoxLeft .LeftTop span{
+	background-color: red;
+}
+.pageBox .pageBoxLeft .LeftBtm{
+	display: none;
+	border: 8px solid gray;
+	height: 150px;
+	margin-top: 30px;
+}
+.pageBox .pageBoxRight{
+	width: 20%;
+	float: right;
+}
+.pageBoxRight ul li{
+	list-style-type: none;
+	height: 30px;
+	background-color: gray;
+	margin: 4px 0;
+	text-align: center;
+	font-size: 16px;
+	line-height: 30px;
+	margin-right: 10px;
+	cursor:pointer;
+}
+.pageBoxRight ul li:hover{
+	background-color: red;
+}
+.changeBox{
+	height: 60px;
+	padding-left: 20px;
+}
+.changeBox span{
+	display: inline-block;
+	width: 60px;
+	height: 30px;
+	margin-top: 30px;
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	font: '黑体' bold 16px;
+	
+}
+.changeBox button{
+	float: right;
+	border: none;
+	width: 20px;
+	height: 20px;
+}
+.choiceBox{
+	margin-left: 20px;
+	border-top: 4px solid orange;
+	height: 80px;
+	line-height: 80px;
+}
+.choiceBox input{
+	display: inline-block;
+}
+</style>
+<script type="text/javascript">
+window.onload=function(){
+	var oTop=document.getElementsByClassName('LeftTop')[0];
+	var oBtm=document.getElementsByClassName('LeftBtm')[0];
+	var oRight=document.getElementsByClassName('pageBoxRight')[0];
+	var aLi=oRight.getElementsByTagName('li');
+	var btmClose=oBtm.getElementsByTagName('button')[0];
+	var aSpan=oBtm.getElementsByTagName('span');
+	var choice=oBtm.getElementsByClassName('choiceBox')[0];
+	var ali={
+		onOff:true
+	};
+	aLi[0].onclick=function(){
+		if(ali.onOff){
+			aLi[1].style.display='block';
+			aLi[2].style.display='block';
+			aLi[0].innerHTML='收缩';
+			ali.onOff=!ali.onOff;
+		}else{
+			aLi[1].style.display='none';
+			aLi[2].style.display='none';
+			aLi[0].innerHTML='展开';
+			ali.onOff=!ali.onOff;
+		}
+	}
+	var origionText=oTop.innerHTML;
+	function create1(){
+		oBtm.style.display='block';
+		aSpan[0].style.backgroundColor='orange';
+		aSpan[1].style.backgroundColor='';
+		choice.innerHTML="<input type=\'text\'><input type=\'button\' value=\'查找\'>"
+			var aInp=choice.getElementsByTagName('input');
+			aInp[1].onclick=function(){
+				oTop.innerHTML=origionText;
+				event.stopPropagation();
+				if (aInp[0].value==''){
+					alert("请输入要查找的内容")
+					return;
+				}else{
+					var str=oTop.innerHTML;
+					var arr=str.split(aInp[0].value);
+					if(arr.length!=1){
+					 oTop.innerHTML=arr.join('<span>'+aInp[0].value+'</span>')
+					}else{alert('没有找到你想查找的'+aInp[0].value)};
+				};
+			}
+			
+		}
+		function create2(){
+		oBtm.style.display='block';
+		aSpan[1].style.backgroundColor='orange';
+		aSpan[0].style.backgroundColor='';
+		choice.innerHTML="<input type=\'text\'>  <input type=\'text\'>  <input type=\'button\' value=\'替换\'>"
+		var aInp=choice.getElementsByTagName('input');
+			aInp[2].onclick=function(){
+				oTop.innerHTML=origionText;
+				event.stopPropagation();
+			if (aInp[0].value==''){
+					alert("请输入要替换的内容")
+					return;
+				}else if(aInp[1].value==''){
+					alert('请输入替换houde内容');
+					return;
+				}else{
+					var str=oTop.innerHTML;
+					var arr=str.split(aInp[0].value);
+					if(arr.length!=1){
+					 oTop.innerHTML=arr.join('<span>'+aInp[1].value+'</span>')
+					}else{
+						alert('您输入的有误'+aInp[0].value);
+					
+				};
+			}
+		}
+	}
+	aLi[1].onclick=function(){
+		create1();
+	}
+	aSpan[0].onmouseover=function(){
+		create1();
+	}
+	aLi[2].onclick=function(){
+		create2();
+	}
+	aSpan[1].onmouseover=function(){
+		create2();
+	}
+	btmClose.onclick=function(){
+		oBtm.style.display='none';
+	}
+}
+</script>
+</head>
+<body>
+<div class='pageBox'>
+	<div class='pageBoxLeft'>
+		<div class='LeftTop'>一个字符串数组。该数组是通过在 separator 指定的边界处将字符串 stringObject 分割成子串创建的。返回的数组中的字串不包括 separator 自身。但是，如果 separator 是包含子表达式的正则表达式，那么返回的数组中包括与这些子表达式匹配的字串（但不包括与整个正则表达式匹配的文本）。
+		</div>
+		<div class='LeftBtm'>
+			<div class='changeBox'>
+				<span>查找</span>
+				<span>替换</span>
+				<button>X</button>
+			</div>
+			<div class='choiceBox'>	
+				
+			</div>
+		</div>
+	</div>
+	<div class='pageBoxRight'>
+		<ul>
+			<li>展开</li>
+			<li style='display:none'>查找</li>
+			<li style='display:none'>替换</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>
