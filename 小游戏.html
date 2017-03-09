@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+body,div,h3,p,button{
+	margin: 0;
+	padding: 0;
+}
+#game{
+	width: 1000px;
+	height: 600px;
+	border: 1px solid red;
+	margin: 0 auto;
+}
+#top{
+	width: 100%;
+	height: 20%;
+	border: 1px solid green;
+	text-align: center;
+}
+#top button{
+	font-size: 16px;
+	border: none;
+	width: 100px;
+	height: 40px;
+	margin: 10px auto;
+	transition:height 2s,width 4s;
+}
+#top button:hover{
+	width: 300px;
+	height: 60px;
+}
+#buttom{
+	width: 100%;
+	height: 80%;
+}
+#countBox{
+	width: 14.2%;
+	height: 20%;
+	border: 2px solid green;
+	float: left;
+}
+#countBox p{
+	width: 60%;
+	height: 20%;
+	margin: 10% auto;
+}
+#screen{
+	overflow: hidden;
+	border: 2px solid green;
+	width: 85%;
+	height:99%;
+	float: right;
+	position: relative;
+}
+#screen img{
+	position: absolute;
+}
+</style>
+<script type="text/javascript">
+window.onload=function () {
+	var oBtn=document.getElementById('top').getElementsByTagName('button')[0];
+	var aSpan=document.getElementById('countBox').getElementsByTagName('span');
+	var oImg=document.getElementById('screen').getElementsByTagName('img')[0];
+	var arrShake=[];
+	var speed=1,getP=0,lostP=0;
+	for (var i = 10; i >=0; i--) {
+		arrShake.push(i,-i)
+	};
+	oImg.style.top=-24+'px';
+	var arrImg=['number/1.png','number/2.png','number/3.png','number/4.png','number/5.png','number/6.png','number/7.png','number/8.png','number/9.png','number/10.png','number/11.png','number/qq.png'];
+	//screen 宽850 高480
+	oBtn.onclick=function(){
+		getP=0;
+		lostP=0;
+		speed=1;
+		aSpan[0].innerHTML=getP;
+		aSpan[1].innerHTML=lostP;
+		move(speed);
+	}
+	function shake(speed){
+		var timer1=null;
+		clearInterval(timer1);
+		var nowLeft=parseInt(getComputedStyle(oImg)['left']);
+		var i=0;
+		timer1=setInterval(function(){
+			if (i<arrShake.length) {
+			oImg.style.left=nowLeft+arrShake[i]+'px';
+			i++;
+			}else{
+				clearInterval(timer1);
+				move(speed);
+			};
+		},30)			
+	}
+	var timer=null;
+	function move(speed){
+		clearInterval(timer);
+		oImg.src=arrImg[Math.floor(Math.random()*10)];
+		oImg.style.top=-50+'px';
+		oImg.style.left=Math.floor(Math.random()*810+10)+'px';
+		timer=setInterval(function(){
+			var nowTop=parseInt(getComputedStyle(oImg)['top']);
+			oImg.style['top']=nowTop+speed+'px';//决定oimg的Top语句不能放在清除定时器的后面。否则会不断叠加top值。
+			oImg.onmouseover=function(){
+				clearInterval(timer);
+				speed++;
+				getP++;
+				aSpan[0].innerHTML=getP;
+				oImg.src=arrImg[arrImg.length-1];
+					shake(speed);
+			}
+			console.log(nowTop+'s '+speed);
+			if ((nowTop+speed)>=480) {
+				lostP++;
+				aSpan[1].innerHTML=lostP;
+				clearInterval(timer);
+				move(speed);
+			};
+		},30)
+		if (lostP==10) {
+		clearInterval(timer);
+	};
+	};
+
+}
+</script>
+</head>
+<body>
+<div id='game'>
+	<div id='top'>
+		<h3>测试手速有多快</h3>
+		<p>就是点击鼠标来消除表情，表情向下运动的速度会越来越快</p>
+		<button>开始游戏</button>
+	</div>
+	<div id='buttom'>
+		<div id='countBox'>
+			<p>得分：<span>0</span>分</p>
+			<p>失分：<span>0</span>分</p>
+		</div>
+		<div id='screen'>
+			<img src="number/1.png">
+		</div>
+	</div>
+</div>
+</body>
+</html>
