@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+body,div,ol,li{
+	margin: 0;
+	padding: 0;
+}
+div{
+	position: absolute;
+	left: 200px;
+	top: 300px;
+	width: 150px;
+	border: 1px solid red;
+}
+div ul{
+	list-style-type: none;
+	float:right;
+}
+div ul li button{
+	margin: 4px;
+	border-radius: 4px;
+}
+</style>
+<script type="text/javascript">
+window.onload=function () {
+	var oLi=document.getElementsByTagName('li');
+	var oOl=document.getElementsByTagName('ul')[0];
+	for (var i = 0; i < oLi.length; i++) {
+		var aBtn=oLi[i].getElementsByTagName('button');
+		aBtn[0].onclick=function(i){
+			return function(i){
+				if (this.parentNode.previousSibling) {
+					oOl.insertBefore(this.parentNode,this.parentNode.previousSibling)
+				};
+	       	
+			};				
+		}(i);
+		aBtn[1].onclick=function(i){
+			return function(i){
+				if (this.parentNode.nextSibling) {
+						oOl.insertBefore(this.parentNode,this.parentNode.nextSibling.nextSibling)
+				};
+	       
+
+			
+			};				
+		}(i);
+	}	
+};
+</script>
+</head>
+<body>
+<div>
+	<ul><li>1<button>向上</button><button>向下</button></li><li>2<button>向上</button><button>向下</button></li><li>3<button>向上</button><button>向下</button></li><li>4<button>向上</button><button>向下</button></li><li>5<button>向上</button><button>向下</button></li><li>6<button>向上</button><button>向下</button></li><li>7<button>向上</button><button>向下</button></li><li>8<button>向上</button><button>向下</button></li>
+	</ul>
+</div>
+</body>
+</html>
