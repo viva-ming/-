@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title></title>
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+window.onload=function  () {
+	/*var s1={
+		c1:[1,2,3,4],
+		_c2:3,
+		c3:function(){
+			alert('ni hao');
+		}
+	}
+	Object.defineProperty(s1,"c2",{
+		get:function(){
+			return this._c2;
+		},
+		set:function(newc2){
+			if(newc2>2){
+				this.c1=[5,5,5,5,5];
+			    this._c2=newc2;
+			}
+		}
+		
+	});
+	console.log(s1.c1);
+	console.log(s1.c2);
+	s1.c2=5;
+	console.log(s1.c1);
+	console.log(s1.c2);*/
+	/*function Person(){
+	this.xx=111;
+	}
+	Person.prototype={
+		//constructor:Person,
+		xx:'ssss',
+		nae:'xxxxx',
+		age:22,
+		name:function(){
+		alert(this.xx)
+		}
+	};
+	
+	var p=new Person();
+	p.name();//结果是111，先在实例中寻找xx,找不到再去Person.prototype中寻找xx,
+	*/
+	/*function f(){
+		for(let i=0;i<5;i++){
+			console.log(i)
+		}//使用let声明解决了闭包的问题。
+		var a=1;
+		function v(){
+			var b=2;
+			//console.log(b);
+		
+		}
+		v();
+		//console.log(a)
+	}
+	f();*/
+	/*function fo(){
+		function br(a){
+			i=3;
+			console.log(a+i);
+		}
+		for (var i = 0; i <10; i++) {
+			br(i*2);
+		};
+	} fo()
+	/输出结果是0 11 11 111....无限下去。第一次执行时i=0;执行br(0*2)。sonsole.log(0+3);此时i=3，执行完后i+1=4,
+	第二次再进入for中执行br(4*2)。sonsole.log(8+3),此时i从4变成3，第三次进入for循环中执行和第二次一样的步奏。无限console.log(8+3).*/
+	/*var foo=(function coolMo(){
+		var something='cool';
+		var another=[1,2,3];
+		function dosomething(){
+			console.log(something);
+		}
+		function doanother(){
+			console.log(another.join('!'));
+		}
+		return{
+			dosomething:dosomething,
+			doanother:doanother
+		}
+	})();
+	foo.dosomething();
+	foo.doanother()*/
+	/*function foo(){
+		console.log(a)
+	}
+	function bar(){
+		var a=3;
+		foo();
+	}
+	var a=2;
+	bar()//有关函数申明的，静态作用域和动态作用域的问题。再这儿是静态作用域，调用的是a=2;*/
+	/*console.log([1,2,3].map(x=>x*x));//箭头函数，传参X，返回x*x;*/
+	function digui(n){
+		if (n==1) {
+			return n
+		};
+		return n*arguments.callee(n-1)
+	}
+	console.log(digui(5))
+}
+</script>	
+</head>
+<body>
+<div></div>
+</body>
+</html>
