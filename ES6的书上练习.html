@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ES6的练习</title>
+<script type="text/javascript">
+/*
+var Proxy=new Proxy({},{
+	get:function  (target,property) {
+		return 22// body...
+	}
+});
+console.log(Proxy.t);
+console.log(Proxy.xx);
+var s1=Object.create(Proxy);
+s1.kk=1;
+console.log(s1.tt);
+console.log(s1.kk);
+*/
+/*var handler={
+	get:function(target,name){
+		if(name in target){
+			return target.name;
+		}else{
+		return 'don\'t exist   '+name;	
+			}
+	},//给对象的设置属性的时候用逗号隔开
+	apply:function(target,thisBinding,args){
+		return args[0];
+	},
+	constructer:function(target,args,fproxy){
+		return args[1];
+	},
+	set:function(target,name,receiver ){
+		return target[name];
+	}
+};
+var fproxy=new Proxy(function(x,y){
+	return x+y;
+},handler);
+fproxy.aa='nihao'
+console.log(fproxy(1,2));
+console.log(new fproxy(1,2));//这句话不返回2 ，而是返回一个对象而且要是constructer 而不是construct;
+console.log(fproxy.tt);
+console.log(fproxy.aa);*/
+/* function createArray(...element){
+	var handler={
+		get(target,proKey,receiver){
+			let index=Number(proKey);
+			if(index<0){
+				proKey=String(target.length+index);
+			}
+			return Reflect.get(target,proKey,receiver);
+		}
+	};
+	let target=[];
+	target.push(...element);
+	return new Proxy(target,handler);
+}
+let arr=createArray('a','b','c');
+console.log(arr[-1]);*/
+/*var buffer=new ArrayBuffer(16);
+console.log(ArrayBuffer.isView(buffer));
+var v=new Int32Array(buffer);
+console.log(ArrayBuffer.isView(v))*/
+function addten(num){
+	num+=10;
+	return num;
+}
+var kk={
+	result:20
+}
+var add=addten(kk.result);
+console.log(kk.result);//此处说明函数中的参数传递方式，都是按值传递，即，不仅复制一份值传递入函数中，还复制值的内存地址传入，如果是按照引用传递（按引用的话是复制指针进去。内存中的值（kk.result）会发生变化。）。这儿console.log（kk.result)的结果为20+10；而不是20.保持不变。
+console.log(add);
+var url='example.php?';
+function addurlparam(url,name,value){
+	url+=(url.indexOf('?')==-1?'?':'&');
+	url+=encodeURIComponent(name)+'='+encodeURIComponent(value);
+	return url;
+};
+
+console.log(addurlparam(url,'name','zzm'))
+addurlparam(url,'password','123456')
+console.log(url)//结果是'example.php?'。也可以看出是按值传递。此处检验encodeURIComponeent的用法和URL末尾添加字符串参数
+</script>
+</head>
+<body>
+
+</body>
+</html>
