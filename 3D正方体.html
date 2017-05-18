@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>3D小盒子</title>
+<style type="text/css">
+#bigbox{
+	width: 500px;
+	height: 500px;
+	border: 1px solid rgb(88,44,188);
+	-webkit-perspective:800px;
+	-webkit-perspective-origin:center center;
+	position: relative;
+}
+.box{
+	width: 100px;
+	height: 100px;
+	border: 1px solid rgb(55,145,200);
+	margin: 200px 200px;
+	position: absolute;
+	transform-style:preserve-3d;
+	-webkit-transition:3s;
+	transform-origin:center center 50px;
+	-webkit-animation:6s move infinite ease;
+}
+.box div{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	font-size: 50px;
+	text-align: center;
+	line-height: 100px;
+	color: white;
+}
+.box div:nth-of-type(1){
+	left: -100px;top:0;background-color: rgba(155,44,66,0.8);
+	-webkit-transform-origin:right;
+	-webkit-transform:rotateY(90deg);
+}
+.box div:nth-of-type(2){
+	left: 0px;top:-100px;background-color: rgba(155,44,66,0.8);
+	-webkit-transform-origin:bottom;
+	-webkit-transform:rotateX(-90deg);
+}.box div:nth-of-type(3){
+	left: 100px;top:0;background-color: rgba(155,44,66,0.8);
+	-webkit-transform-origin:left;
+	-webkit-transform:rotateY(-90deg);
+}.box div:nth-of-type(4){
+	left: 0px;top:100px;background-color: rgba(55,44,166,0.8);
+	-webkit-transform-origin:top;
+	-webkit-transform:rotateX(90deg);
+}.box div:nth-of-type(5){
+	left: 0px;top:0;background-color: rgba(55,44,66,0.8);
+}.box div:nth-of-type(6){
+	left: 0px;top:0;background-color: rgba(255,44,66,0.8);
+	-webkit-transform:translateZ(100px);
+}
+
+@-webkit-keyframes move{
+	0%{
+	-webkit-transform:rotateX(0deg);
+	}
+	50%{
+	-webkit-transform:rotateX(180deg);
+	}
+	100%{
+	-webkit-transform:rotateZ(180deg);
+	}
+}
+</style>
+</head>
+<body>
+<div id='bigbox'>
+	<div class='box'>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+		<div>6</div>
+	</div>
+</div>
+<ul id='aUl'>
+</ul>
+<script type="text/javascript">
+(function  () {
+		console.log('立即调用匿名函数')
+}())
+var aUl=document.getElementById('aUl');
+var html='';
+for(var i=0;i<4;i++){
+	html+='<li>'+(i+1)+'</li>'
+	
+}
+aUl.innerHTML+=html;
+aUl.addEventListener('click',function(){
+	var target=event.target;//当前事件的目标元素
+	if(target.tagName.toLowerCase()=='li'){//此处把元素的标签名转化为小写，因为在不同的浏览器中tagName返回值有些是大写，有写小写
+		alert(target.innerHTML)
+	}
+},true)
+</script>
+</body>
+</html>

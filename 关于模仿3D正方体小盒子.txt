@@ -1,0 +1,79 @@
+3D小盒子就如同我们生活中的麻将骰子一样。是一个6面体即正方体。
+完成用CSS完成的原理是
+1，首先建立一个视图。相当于把屏幕的一部分划出来作为观看这个小正方体的窗口
+2，然后建立一个小一点的div，这个div的width=height且和正方体的宽相等。并且
+将这个div指定为3D空间：-webkit-transform-style:preserve-3d;
+3，在步奏2中的div里建立6个面。通过css3中的transform的origin（指定旋转基点） 
+rotate（**deg）旋转角度，来拼接成一个正方体。
+
+而小盒子在空间的运动主要是通过运动box来实现的。
+html代码结构如下：
+<div id='bigbox'>//视图，观看小盒子的窗口
+	<div class='box'>//box盒子包含正方体的的6个面
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>//正方体6个面通过旋转拼接成为正方体
+		<div>5</div>
+		<div>6</div>
+	</div>
+</div>
+关键是CSS3代码：
+#bigbox{
+	width: 500px;
+	height: 500px;
+	border: 1px solid rgb(88,44,188);
+	-webkit-perspective:800px;//指定景深，
+	-webkit-perspective-origin:center center;//从什么方向看小盒子，
+景深和观看方向可以理解为去剧院看戏。景深大小表示你离舞台的远近。一般取800效果最好.（大神经过的长期
+实践得到的）。
+}
+.box{
+	width: 100px;
+	height: 100px;
+	border: 1px solid rgb(55,145,200);
+	margin: 200px auto;
+	position: relative;
+	transform-style:preserve-3d;//将box指定为3D空间，
+	-webkit-transition:3s;
+	transform-origin:center center 50px;//旋转的基点。因为是3D空间，所以
+有三个值，对应空间的X Y Z三个坐标值。
+}
+.box div{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	font-size: 50px;
+	text-align: center;
+	line-height: 100px;
+	color: white;
+}
+.box div:nth-of-type(1){
+	left: -100px;top:0;background-color: rgba(55,44,66,0.8);
+	-webkit-transform-origin:right;
+	-webkit-transform:rotateY(90deg);
+}
+.box div:nth-of-type(2){
+	left: 0px;top:-100px;background-color: rgba(100,144,66,0.8);
+	-webkit-transform-origin:bottom;
+	-webkit-transform:rotateX(-90deg);
+}.box div:nth-of-type(3){
+	left: 100px;top:0;background-color: rgba(155,44,66,0.8);
+	-webkit-transform-origin:left;
+	-webkit-transform:rotateY(-90deg);
+}.box div:nth-of-type(4){
+	left: 0px;top:100px;background-color: rgba(55,44,166,0.8);
+	-webkit-transform-origin:top;
+	-webkit-transform:rotateX(90deg);
+}.box div:nth-of-type(5){
+	left: 0px;top:0;background-color: rgba(55,44,66,0.8);
+}.box div:nth-of-type(6){
+	left: 0px;top:0;background-color: rgba(255,44,66,0.8);
+	-webkit-transform:translateZ(100px);
+}
+//6个面的旋转拼接。相当于把一个正方体拆开平铺在地上，再运用旋转各个面连接成为一个盒子。
+rotateX rotateY rotateZ在平面上的旋转可以在脑海中想象 单杠体操运动员绕单杠旋转，
+钢管舞演员绕钢管旋转 抽奖转盘的旋转 一一对应。（参考张鑫旭的空间）
+#bigbox:hover .box{
+	-webkit-transform:rotateX(180deg);
+}
